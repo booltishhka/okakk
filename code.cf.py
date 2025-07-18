@@ -1,35 +1,45 @@
-import math
-import turtle
+import os
+import json
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 def f(x):
-    return 100 * math.sqrt(abs(1 - 0.01 * x ** 2)) + 0.01 * abs(x + 10)
+    return 100 * np.sqrt(np.abs(1 - 0.01 * x**2)) + 0.01 * np.abs(x + 10)
 
 
-screen = turtle.Screen()
-screen.setup(800, 600)
-screen.title("График функции")
-
-t = turtle.Turtle()
-t.speed(0)
-t.penup()
+results_dir = 'results'
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
 
 
-t.goto(-300, 0)
-t.pendown()
-t.goto(300, 0)
-t.penup()
-t.goto(0, -200)
-t.pendown()
-t.goto(0, 200)
-t.penup()
+x_start = -15
+x_end = 15
+step = 0.1
 
 
-x = -15
-t.goto(x * 20, f(x) - 200)
-t.pendown()
-while x <= 5:
-    t.goto(x * 20, f(x) - 200)
-    x += 0.1
+x_values = np.arange(x_start, x_end + step, step)
+y_values = f(x_values)
 
-turtle.done()
 
+results = {
+    "x_values": x_values.tolist(),
+    "y_values": y_values.tolist()
+}
+
+output_file = os.path.join(results_dir, 'function_values.json')
+with open(output_file, 'w') as f_json:
+    json.dump(results, f_json, indent=4)
+
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_values, y_values, label='y = 100√(|1 - 0.01x²|) + 0.01|x + 10|', color='blue')
+plt.title('График функции y = f(x)')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.grid(True)
+plt.legend()
+plt.savefig(os.path.join(results_dir, 'function_plot.png'))
+plt.show()
+
+print(f"Сохранено в  '{results_dir}'")
