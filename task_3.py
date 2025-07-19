@@ -1,13 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
+
 
 def f(x1, x2):
     """Функция f(x1, x2) = 0.5 + (cos²(sin(|x1² - x2²|)) - 0.5) / (1 + 0.001*(x1² + x2²))²"""
-    numerator = np.cos(np.sin(np.abs(x1**2 - x2**2)))**2 - 0.5
-    denominator = (1 + 0.001*(x1**2 + x2**2))**2
+    numerator = np.cos(np.sin(np.abs(x1 ** 2 - x2 ** 2))) ** 2 - 0.5
+    denominator = (1 + 0.001 * (x1 ** 2 + x2 ** 2)) ** 2
     return 0.5 + numerator / denominator
+
 
 # Параметры построения
 x1 = np.linspace(-2.0, 2.0, 100)
@@ -21,8 +23,8 @@ y0 = f(x10, x20)
 
 # Создаем фигуру с 4 подграфиками
 fig = plt.figure(figsize=(16, 12))
-fig.suptitle(f'Графики функции f(x₁, x₂) в точке ({x10}, {x20}), f({x10}, {x20}) = {y0:.4f}',
-             fontsize=14, y=0.98)
+# fig.suptitle(f'Графики функции f(x₁, x₂) в точке ({x10}, {x20}), f({x10}, {x20}) = {y0:.4f}',
+#              fontsize=14, y=0.98)
 
 # 1. 3D поверхность (изометрический вид)
 ax1 = fig.add_subplot(221, projection='3d')
