@@ -29,6 +29,9 @@ ax1.set_zlabel('y = f(x₁, x₂)')
 ax1.set_title('3D поверхность (изометрический вид)')
 fig.colorbar(surf1, ax=ax1, shrink=0.5, aspect=5)
 
+ax1.text(x10, x20, y0, f'({x10}, {x20}, {y0:.2f})', color='red', fontsize=10,
+         bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
+
 ax2 = fig.add_subplot(222)
 contour = ax2.contourf(X1, X2, Y, 20, cmap=cm.viridis)
 ax2.set_xlabel('x₁')
@@ -36,6 +39,11 @@ ax2.set_ylabel('x₂')
 ax2.set_title('Вид сверху (2D проекция)')
 ax2.grid(True)
 fig.colorbar(contour, ax=ax2, shrink=0.5, aspect=5)
+
+ax2.plot(x10, x20, 'ro', markersize=5)
+ax2.annotate(f'({x10}, {x20})\nf={y0:.4f}', xy=(x10, x20), xytext=(10, 10),
+             textcoords='offset points', color='red', fontsize=10,
+             bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
 
 ax3 = fig.add_subplot(223)
 y_x1 = f(x1, x20)
@@ -47,6 +55,9 @@ ax3.grid(True)
 ax3.axvline(x=x10, color='r', linestyle='--', alpha=0.5)
 ax3.axhline(y=y0, color='r', linestyle='--', alpha=0.5)
 
+ax3.text(0.05, 0.95, f'f({x10}, {x20}) = {y0:.4f}', transform=ax3.transAxes,
+         fontsize=10, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
+
 ax4 = fig.add_subplot(224)
 y_x2 = f(x10, x2)
 ax4.plot(x2, y_x2, 'g-', linewidth=2)
@@ -56,6 +67,9 @@ ax4.set_title(f'График f(x₂) при x₁ = {x10}')
 ax4.grid(True)
 ax4.axvline(x=x20, color='r', linestyle='--', alpha=0.5)
 ax4.axhline(y=y0, color='r', linestyle='--', alpha=0.5)
+
+ax4.text(0.05, 0.95, f'f({x10}, {x20}) = {y0:.4f}', transform=ax4.transAxes,
+         fontsize=10, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
 
 plt.tight_layout()
 plt.show()
