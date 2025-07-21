@@ -3,14 +3,12 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def f(x):
     return 100 * np.sqrt(np.abs(1 - 0.01 * x**2)) + 0.01 * np.abs(x + 10)
 
 
 results_dir = 'results'
-if not os.path.exists(results_dir):
-    os.makedirs(results_dir)
+os.makedirs(results_dir, exist_ok=True)
 
 
 x_start = -15
@@ -22,14 +20,15 @@ x_values = np.arange(x_start, x_end + step, step)
 y_values = f(x_values)
 
 
-results = {
-    "x_values": x_values.tolist(),
-    "y_values": y_values.tolist()
-}
+data = [
+    {"x": float(x), "y": float(y)}
+    for x, y in zip(x_values, y_values)
+]
+
 
 output_file = os.path.join(results_dir, 'function_values.json')
 with open(output_file, 'w') as f_json:
-    json.dump(results, f_json, indent=4)
+    json.dump({"data": data}, f_json, indent=4)
 
 
 plt.figure(figsize=(10, 6))
@@ -42,4 +41,4 @@ plt.legend()
 plt.savefig(os.path.join(results_dir, 'function_plot.png'))
 plt.show()
 
-print(f"Сохранено в  '{results_dir}'")
+print(f"Результаты сохранены в '{results_dir}'")
