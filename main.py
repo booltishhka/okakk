@@ -53,8 +53,8 @@ def run_simulation(D, f_min, f_max, num_points=200):
     plt.grid(True, which="both", ls="--")
     plt.legend()
     plt.show()
-D_sphere = 0.1
-F_min = 0.5e9  # 0.5 ГГц
-F_max = 10e9  # 10 ГГц
+D_sphere = 25e-3
+F_min = 0.01e9
+F_max = 35e9
 print(f"Расчет для D={D_sphere} м в диапазоне от {F_min / 1e9:.1f} ГГц до {F_max / 1e9:.1f} ГГц")
 run_simulation(D_sphere, F_min, F_max)
